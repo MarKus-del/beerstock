@@ -26,7 +26,7 @@ public interface BeerControllerDocs {
             @ApiResponse(code = 200, message = "Success beer found in the system"),
             @ApiResponse(code = 404, message = "Beer with given name out found")
     })
-    BeerDTO findById(@PathVariable Long id) throws BeerNotFoundException;
+    BeerDTO findByName(@PathVariable String name) throws BeerNotFoundException;
 
     @ApiOperation(value = "Returns a list of all beers registered in the system")
     @ApiResponses(value = {
