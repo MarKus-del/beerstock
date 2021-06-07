@@ -4,6 +4,7 @@ import com.markusdel.beerstock.builder.BeerDTPBuilder;
 import com.markusdel.beerstock.dto.BeerDTO;
 import com.markusdel.beerstock.entity.Beer;
 import com.markusdel.beerstock.exception.BeerAlreadyRegisteredException;
+import com.markusdel.beerstock.exception.BeerNotFoundException;
 import com.markusdel.beerstock.mapper.BeerMapper;
 import com.markusdel.beerstock.repository.BeerRepository;
 import org.hamcrest.MatcherAssert;
@@ -65,5 +66,20 @@ public class BeerServiceTest {
 
         // then
         assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createdBeer(expectedBeerDTO));
+    }
+
+    @Test
+    void whenValidBeerNameIsGivenThenReturnABeer() throws BeerNotFoundException {
+        // given
+        BeerDTO expectedFoundBeerDTO = BeerDTPBuilder.builder().build().toBeerDTO();
+        Beer expectedFoundBeer = beerMapper.toModel(expectedFoundBeerDTO);
+
+        // when
+        when(beerRepository.findByName(expectedFoundBeer.getName())).thenReturn(Optional.of(expectedFoundBeer));
+
+        // then
+        BeerDTO foundBeerDTO = beerService.findByName(expectedFoundBeerDTO.getName());
+
+        assertThat(foundBeerDTO, is(equalTo(expectedFoundBeerDTO)));
     }
 }

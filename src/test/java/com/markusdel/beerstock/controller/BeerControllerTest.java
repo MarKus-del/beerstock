@@ -74,6 +74,7 @@ public class BeerControllerTest {
 
     @Test
     void whenPOSTItsCalledWithoutRequiredFieldThenAnErrorIsReturned() throws Exception {
+        // given
         BeerDTO beerDTO = BeerDTPBuilder.builder().build().toBeerDTO();
         beerDTO.setBrand(null);
 
@@ -83,4 +84,6 @@ public class BeerControllerTest {
                 .content(asJsonString(beerDTO)))
                 .andExpect(status().isBadRequest());
     }
+
+
 }
