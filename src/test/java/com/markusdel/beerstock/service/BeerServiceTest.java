@@ -94,4 +94,5 @@ public class BeerServiceTest {
         // then
         assertThrows(BeerNotFoundException.class, () -> beerService.findByName(expectedFoundBeerDTO.getName()));
     }
+
 }
