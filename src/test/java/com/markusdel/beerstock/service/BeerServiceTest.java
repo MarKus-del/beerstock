@@ -52,8 +52,18 @@ public class BeerServiceTest {
         assertThat(createdBeerDTO.getId(), is(equalTo(expectedBeerDTO.getId())));
         assertThat(createdBeerDTO.getName(), is(equalTo(expectedBeerDTO.getName())));
         assertThat(createdBeerDTO.getQuantity(), is(equalTo(expectedBeerDTO.getQuantity())));
+    }
 
+    @Test
+    void whenAlreadyRegisteredBeerInformedThenExceptionShouldBeThrown() throws BeerAlreadyRegisteredException {
+        // given
+        BeerDTO expectedBeerDTO = BeerDTPBuilder.builder().build().toBeerDTO();
+        Beer duplicateBeer = beerMapper.toModel(expectedBeerDTO);
 
+        //when
+        when(beerRepository.findByName(expectedBeerDTO.getName())).thenReturn(Optional.of(duplicateBeer));
 
+        // then
+        assertThrows(BeerAlreadyRegisteredException.class, () -> beerService.createdBeer(expectedBeerDTO));
     }
 }
