@@ -8,14 +8,10 @@ import com.markusdel.beerstock.exception.BeerNotFoundException;
 import com.markusdel.beerstock.exception.BeerStockExceededException;
 import com.markusdel.beerstock.mapper.BeerMapper;
 import com.markusdel.beerstock.repository.BeerRepository;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
