@@ -124,4 +124,21 @@ public class BeerServiceTest {
         assertThat(foundBListBeerDTO, is(empty()));
     }
 
+    @Test
+    void whenExclusionIsCalledWithValidIdThenBeerShouldBeDeleted() throws BeerNotFoundException {
+        // given
+        BeerDTO expectedDeleteBeerDTO = BeerDTPBuilder.builder().build().toBeerDTO();
+        Beer expectedDeleteBeer = beerMapper.toModel(expectedDeleteBeerDTO);
+
+        // when
+        when(beerRepository.findById(expectedDeleteBeerDTO.getId())).thenReturn(Optional.of(expectedDeleteBeer));
+        doNothing().when(beerRepository).deleteById(expectedDeleteBeerDTO.getId());
+
+        // then
+        beerService.deleteById(expectedDeleteBeerDTO.getId());
+
+        verify(beerRepository, times(1)).findById(expectedDeleteBeerDTO.getId());
+        verify(beerRepository, times(1)).deleteById(expectedDeleteBeerDTO.getId());
+    }
+
 }
